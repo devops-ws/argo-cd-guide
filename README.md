@@ -17,6 +17,10 @@ TODO
 ## Webhook
 TODO
 
+```
+https://ip:port/api/webhook
+```
+
 ## 配置管理插件
 配置管理工具（Config Management Plugin，CMP）使得 Argo CD 可以支持 Helm、Kustomize 以外的（可转化为 Kubernetes 资源）格式。
 
