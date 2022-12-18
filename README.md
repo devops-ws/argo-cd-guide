@@ -1,9 +1,32 @@
 # Argo CD Guide
 
-[Argo CD]（https://argo-cd.readthedocs.io/） 是基于 [Kubernetes](https://kubernetes.io/) 的申明式、GitOps 持续部署工具。
+[Argo CD](https://argo-cd.readthedocs.io/) 是基于 [Kubernetes](https://kubernetes.io/) 的申明式、GitOps 持续部署工具。
 
 ## 安装
-TODO
+首先，你需要有一套 [Kubernetes](https://github.com/kubernetes/kubernetes/) 环境。下面的工具可以帮助你快速按照好一套 Kubernetes 环境：
+
+> 推荐使用 [hd](https://github.com/LinuxSuRen/http-downloader) 安装下面的工具
+>
+> 安装 `hd` 的命令为：`curl https://linuxsuren.github.io/tools/install.sh|bash`
+
+| 工具 | 工具安装 |使用 |
+|---|---|---|
+| [k3d](https://k3d.io/) | `hd i k3d` | `k3d cluster create` |
+| [kubekey](https://github.com/kubesphere/kubekey) | `hd i kk` | `kk create cluster` |
+| [minikube](https://github.com/kubernetes/minikube) | `hd i minikube` | `minikube start` |
+
+当 Kubernetes 环境就绪后，就可以通过下面的命令会在命名空间（`argo`）下安装最新版本的 `Argo CD`：
+
+```shell
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+如果你的环境访问 GitHub 时有网络问题，可以使用下面的命令来安装：
+
+```shell
+docker run -it --rm -v /root/.kube/:/root/.kube --network host ghcr.io/linuxsuren/argo-cd-guide:master
+```
 
 ## 一个简单的示例
 TODO
@@ -96,3 +119,6 @@ TODO
 
 ## 组件介绍
 TODO
+
+## 其他资料
+* [Argo CD 视频教程](https://www.bilibili.com/video/BV17F411h7Zh/)
