@@ -53,7 +53,8 @@ spec:
     repoURL: https://gitee.com/devops-ws/learn-pipeline-go   # 示例工程
     path: kustomize                                           # 从该目录下查找 Kubernetes 文件
     targetRevision: HEAD
-    kustomize: {}
+    kustomize:
+      namePrefix: foo
 EOF
 ```
 
