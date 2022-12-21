@@ -49,6 +49,8 @@ spec:
 Argo CD 现在支持连接托管在 Google Cloud Source 上的仓库了。
 这为依赖 Google Cloud Source 的应用打开了可能性，这是一个值得期待的功能。
 
+![](https://miro.medium.com/max/720/0*jEZTNAF_dMALWDjm.webp)
+
 感谢来自 GetYourGuide 的 Alex Eftimie 在这功能上做出的贡献。
 
 ## Application 支持多源
