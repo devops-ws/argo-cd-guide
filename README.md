@@ -151,7 +151,15 @@ kubectl create secret generic git-secret --from-file=id_rsa=/root/.ssh/id_rsa --
 如果再发散性地思考下，我们也可以通过自定义格式的 YAML（或 JSON 等任意格式）文件转为 Jenkins 可以识别的 Jenkinsfile，或其他持续集成工具的配置文件格式。
 
 ## 凭据管理
-TODO
+可以通过下面的命令，生成一个加密后的 Secret：
+```shell
+kubectl create secret generic test --from-literal=username=admin --from-literal=password=admin --dry-run=client -oyaml -n default | kubeseal -oyaml
+```
+
+下面是生成 Docker 认证信息的命令：
+```shell
+kubectl create secret docker-registry harbor --docker-username=admin --docker-password=password --dry-run=client -oyaml -n default | kubeseal -oyaml
+```
 
 ## 单点登录
 TODO
