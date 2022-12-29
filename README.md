@@ -158,7 +158,9 @@ kubectl create secret generic test --from-literal=username=admin --from-literal=
 
 下面是生成 Docker 认证信息的命令：
 ```shell
-kubectl create secret docker-registry harbor --docker-username=admin --docker-password=password --dry-run=client -oyaml -n default | kubeseal -oyaml
+kubectl create secret docker-registry harbor --docker-server='10.121.218.184:30002' \
+  --docker-username=admin --docker-password=password \
+  --dry-run=client -oyaml -n default | kubeseal -oyaml
 ```
 
 ## 单点登录
