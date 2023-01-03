@@ -58,8 +58,53 @@ spec:
 EOF
 ```
 
+更多应用的例子请查看：
+
+* [SonarQube](examples/sonarqube.md)
+* [Harbor](examples/harbor.md)
+
 ## 概念
 TODO
+
+## 同步策略
+
+Argo CD 可以[指定 Git 仓库中的特定目录](https://argo-cd.readthedocs.io/en/stable/user-guide/directory/)，已经一些通用配置：
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample
+spec:
+  source:
+    repoURL: https://github.com/devops-ws/learn-pipeline-go
+    targetRevision: HEAD
+    path: kustomize                           # 指定父目录
+    directory:
+      recurse: true                           # 支持遍历子目录
+      exclude: '{config.json,env-usw2/*}'     # 忽略部分
+      include: '*.yaml'                       # 包含所有 YAML 文件
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+```
+
+设置[同步策略](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/)：
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample
+spec:
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true      # 自动创建命名空间
+    automated:
+      prune: true               # Git 库中删除的资源，也会在集群中删除
+      selfHeal: true
+```
 
 ## 模板工具
 TODO
@@ -164,7 +209,48 @@ kubectl create secret docker-registry harbor --docker-server='10.121.218.184:300
 ```
 
 ## 单点登录
-TODO
+Argo CD 内置了 Dex 服务，我们可以参考如下的配置来对接外部身份认证服务：
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+data:
+  url: https://10.121.218.184:31392
+  dex.config: |
+    logger:
+      level: debug
+    connectors:
+      - type: gitlab
+        id: gitlab
+        name: GitLab
+        config:
+          baseURL: http://10.121.218.82:6080
+          clientID: b9119ac2313f62625d8b1e9648f7b10b9dad9c5198f19e5df731b09ffa5d008d
+          clientSecret: a0c1bef745da758609acceb5beba3c0104f04c3b0a491aee7c7c479ed3e26309
+          redirectURI: https://10.121.218.184:31392/api/dex/callback
+          groups:
+          - dev               # 只允许 dev 用户组
+          useLoginAsID: false
+```
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd
+data:
+  policy.csv: |
+    # 只允许 dev 组的用户查看 application
+    p, role:org-readonly, applications, get, default/*, allow
+
+    g, dev, role:org-readonly           # 假如用户组名为 dev
+  policy.default: role:org-readonly
+  scopes: '[groups, email]' 
+```
 
 ## 组件介绍
 TODO
