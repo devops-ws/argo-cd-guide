@@ -29,8 +29,18 @@ spec:
         value: 'true'
       - name: sonarProperties.sonar\.core\.serverBaseURL
         value: http://10.121.218.184:30008
-      - name: plugins.install
+      - name: plugins.install[0]
         value: https://github.com/vaulttec/sonar-auth-oidc/releases/download/v2.1.1/sonar-auth-oidc-plugin-2.1.1.jar
+      - name: sonarProperties.sonar\.auth\.oidc\.enabled
+        value: 'true'
+      - name: sonarProperties.sonar\.auth\.oidc\.issuerUri
+        value: 'https://10.121.218.184:31392/api/dex'
+      - name: sonarProperties.sonar\.auth\.oidc\.clientId\.secured
+        value: 'sonarqube'
+      - name: sonarProperties.sonar\.auth\.oidc\.clientSecret\.secured
+        value: 'rick'
+      - name: sonarProperties.sonar\.auth\.oidc\.scopes
+        value: 'openid email profile'
   destination:
     server: "https://kubernetes.default.svc"
     namespace: sonarqube
