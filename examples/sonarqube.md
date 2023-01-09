@@ -29,6 +29,8 @@ spec:
         value: 'true'
       - name: sonarProperties.sonar\.core\.serverBaseURL
         value: http://10.121.218.184:30008
+      - name: plugins.install
+        value: https://github.com/vaulttec/sonar-auth-oidc/releases/download/v2.1.1/sonar-auth-oidc-plugin-2.1.1.jar
   destination:
     server: "https://kubernetes.default.svc"
     namespace: sonarqube
