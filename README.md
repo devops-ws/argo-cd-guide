@@ -28,6 +28,11 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 docker run -it --rm -v /root/.kube/:/root/.kube --network host ghcr.io/linuxsuren/argo-cd-guide:master
 ```
 
+查看初始化密码：
+```shell
+kubectl -n argocd get secret argocd-initial-admin-secret -ojsonpath={.data.password} | base64 -d
+```
+
 推荐使用的工具：
 
 ||||
