@@ -25,7 +25,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 如果你的环境访问 GitHub 时有网络问题，可以使用下面的命令来安装：
 
 ```shell
-docker run -it --rm -v /root/.kube/:/root/.kube --network host ghcr.io/linuxsuren/argo-cd-guide:master
+docker run -it --rm -v /root/.kube/:/root/.kube --network host --pull always ghcr.io/linuxsuren/argo-cd-guide:master
 ```
 
 查看初始化密码：
