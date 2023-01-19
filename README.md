@@ -33,6 +33,11 @@ docker run -it --rm -v /root/.kube/:/root/.kube --network host --pull always ghc
 kubectl -n argocd get secret argocd-initial-admin-secret -ojsonpath={.data.password} | base64 -d
 ```
 
+设置访问方式：
+```shell
+kubectl -n argocd patch svc argocd-server --type='json' -p '[{"op":"replace", "path":"/spec/type", "value":"NodePort"}, {"op":"add", "path":"/spec/ports/0/nodePort","value":31518}]'
+```
+
 推荐使用的工具：
 
 ||||
