@@ -36,6 +36,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret -ojsonpath={.data.passw
 设置访问方式：
 ```shell
 kubectl -n argocd patch svc argocd-server --type='json' -p '[{"op":"replace", "path":"/spec/type", "value":"NodePort"}, {"op":"add", "path":"/spec/ports/0/nodePort","value":31518}]'
+# 暴露 k3d 端口
+k3d node edit k3d-k3s-default-serverlb --port-add 31518:31518
 ```
 
 推荐使用的工具：
