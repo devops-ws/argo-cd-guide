@@ -2,6 +2,8 @@
 
 [Argo CD](https://argo-cd.readthedocs.io/) 是基于 [Kubernetes](https://kubernetes.io/) 的申明式、GitOps 持续部署工具。
 
+本教程可以通过 [mde](https://github.com/LinuxSuRen/md-exec) 实现交互式体验。
+
 ## 安装
 首先，你需要有一套 [Kubernetes](https://github.com/kubernetes/kubernetes/) 环境。下面的工具可以帮助你快速按照好一套 Kubernetes 环境：
 
@@ -15,11 +17,25 @@
 | [kubekey](https://github.com/kubesphere/kubekey) | `hd i kk` | `kk create cluster` |
 | [minikube](https://github.com/kubernetes/minikube) | `hd i minikube` | `minikube start` |
 
+```shell
+#!title: Install K3d
+hd i k3d
+```
+
+```shell
+#!title: Reinstall K3d cluster
+k3d cluster delete
+k3d cluster create
+```
+
 当 Kubernetes 环境就绪后，就可以通过下面的命令会在命名空间（`argo`）下安装最新版本的 `Argo CD`：
 
 ```shell
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+#!title: Install ArgoCD
+kubectl create namespace argocd || true
+hd get https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/install.yaml
+kubectl apply -n argocd -f install.yaml || rm -rf install.yaml
+rm -rf install.yaml
 ```
 
 如果你的环境访问 GitHub 时有网络问题，可以使用下面的命令来安装：
@@ -30,6 +46,7 @@ docker run -it --rm -v /root/.kube/:/root/.kube --network host --pull always ghc
 
 查看初始化密码：
 ```shell
+#!title: Get Password
 kubectl -n argocd get secret argocd-initial-admin-secret -ojsonpath={.data.password} | base64 -d
 ```
 
@@ -51,6 +68,7 @@ k3d node edit k3d-k3s-default-serverlb --port-add 31518:31518
 执行下面的命令后
 
 ```shell
+#!title: Create A Sample App +f
 cat <<EOF | kubectl apply -n argocd -f -
 apiVersion: argoproj.io/v1alpha1
 kind: Application
