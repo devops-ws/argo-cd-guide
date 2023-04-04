@@ -343,6 +343,20 @@ EOF
 
 详情请查看 https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters
 
+## 自动更新镜像
+借助 [argocd-image-updater](https://github.com/argoproj-labs/argocd-image-updater) 可以自动更新应用的镜像，参考配置如下：
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: server
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: 10.121.218.184:30002/al-cloud/console:master
+    argocd-image-updater.argoproj.io/update-strategy: digest
+```
+
 ## 组件介绍
 TODO
 
