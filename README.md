@@ -149,7 +149,7 @@ https://ip:port/api/webhook
 ## 配置管理插件
 配置管理工具（Config Management Plugin，CMP）使得 Argo CD 可以支持 Helm、Kustomize 以外的（可转化为 Kubernetes 资源）格式。
 
-例如：我们可以将 GitHub Actions 的配置文件转为 Argo Workflows 的文件，从而实现在不了解 Argo Workflows 的 `WorkflowTemplate` 写法的前提下，也可以把 Argo Workflows 作为 CI 工具。
+例如：我们可以将 [GitHub Actions 的配置文件转为 Argo Workflows](https://github.com/LinuxSuRen/github-action-workflow/) 的文件，从而实现在不了解 Argo Workflows 的 `WorkflowTemplate` 写法的前提下，也可以把 Argo Workflows 作为 CI 工具。
 
 > 下面的例子中需要用到 Argo Workflows，请自行安装，或查看[这篇中文教程](https://github.com/LinuxSuRen/argo-workflows-guide)。
 
