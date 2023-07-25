@@ -31,6 +31,8 @@ spec:
         value: http://10.121.218.184:30008
       - name: plugins.install[0]
         value: https://github.com/vaulttec/sonar-auth-oidc/releases/download/v2.1.1/sonar-auth-oidc-plugin-2.1.1.jar
+      - name: plugins.install[1]
+        value: https://ghproxy.com/https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/1.14.0/sonarqube-community-branch-plugin-1.14.0.jar
       - name: sonarProperties.sonar\.auth\.oidc\.enabled
         value: 'true'
       - name: sonarProperties.sonar\.auth\.oidc\.issuerUri
