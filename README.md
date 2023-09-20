@@ -248,7 +248,7 @@ metadata:
   name: argocd-cm
   namespace: argocd
 data:
-  url: https://10.121.218.184:31392
+  url: https://10.121.218.184:31392 # argo-cd server 的地址
   dex.config: |
     logger:
       level: debug
