@@ -239,7 +239,7 @@ kubectl create secret docker-registry harbor --docker-server='10.121.218.184:300
 ```
 
 ## 单点登录
-Argo CD 内置了 Dex 服务，我们可以参考如下的配置来对接外部身份认证服务：
+Argo CD [内置了 Dex 服务](https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#dex)，我们可以参考如下的配置来对接外部身份认证服务：
 
 ```yaml
 apiVersion: v1
