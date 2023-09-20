@@ -282,6 +282,10 @@ data:
   scopes: '[groups, email]' 
 ```
 
+对于通用的 OAuth 认证，可以访问下面地址获取相关信息：
+
+`https://10.121.218.184:31392/api/dex/.well-known/openid-configuration`
+
 ## 多集群
 ```shell
 #!title: Create New Cluster
