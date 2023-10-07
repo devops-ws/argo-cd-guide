@@ -139,6 +139,26 @@ spec:
 ## 模板工具
 TODO
 
+## Git 仓库
+Argo CD 支持 HTTPS、SSH 协议的 Git 仓库，下面的例子中使用的是 SSH 协议：
+
+```yaml
+apiVersion: v1
+data:
+  insecure: dHJ1ZQ==
+  project: ZGVmYXVsdA==
+  sshPrivateKey: eW91ci12YWx1ZQ==
+  type: Z2l0
+  url: Z2l0QGdpdGh1Yi5jb206ZGV2b3BzLXdzL2FyZ28tY2QtZ3VpZGUuZ2l0
+kind: Secret
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository # 表明这会被 Argo CD 识别为仓库（Git、Helm 等）
+  name: repo-1108037796 # 以 repo- 为前缀的名称，通过 UI 创建时会自动生成
+  namespace: argocd
+type: Opaque
+```
+
 ## Webhook
 TODO
 
