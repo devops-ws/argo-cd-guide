@@ -384,6 +384,43 @@ metadata:
     argocd-image-updater.argoproj.io/update-strategy: digest
 ```
 
+## 通知
+Argo CD 内置了[消息通知模块](https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/)，只要添加下面的 ConfigMap 即可，这里以发送消息到钉钉为例：
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+data:
+  subscriptions: |
+    - recipients:
+      - status
+      triggers:
+      - sync-operation-change
+  defaultTriggers: |
+    - sync-operation-change
+  trigger.sync-operation-change: |
+    - when: app.status.operationState.phase in ['Succeeded', 'Running', 'Error', 'Failed']
+      oncePer: app.status.sync.revision
+      send: [status]
+  template.status: |
+    webhook:
+      status:
+        method: POST
+        path: /send?access_token=token
+        body: |
+          {"msgtype": "text", "text": {"content": "Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}."}}
+    message: |
+      Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}.
+      Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+  service.webhook.status: |
+    url: https://oapi.dingtalk.com/robot
+    headers:
+    - name: Content-Type
+      value: application/json
+```
+
 ## 组件介绍
 TODO
 
