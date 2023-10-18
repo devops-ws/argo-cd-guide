@@ -64,6 +64,9 @@ k3d node edit k3d-k3s-default-serverlb --port-add 31518:31518
 | [k9s](https://k9scli.io/) | `hd i k9s` | K9s is a terminal based UI to interact with your Kubernetes clusters. |
 | `argocd` | `hd i argoproj/argo-cd` |  |
 
+## 最佳实践
+为了确保 YAML 格式正确，可以使用 [kubeconform](https://github.com/yannh/kubeconform) 对 [Argo CD 的 JSON SChema](https://github.com/argoproj/argo-cd/issues/9348) 进行校验。
+
 ## 一个简单的示例
 执行下面的命令后
 
