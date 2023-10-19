@@ -162,6 +162,28 @@ metadata:
 type: Opaque
 ```
 
+## Helm 仓库
+> 截至 v2.5.2 Argo CD 界面还支持添加 Helm 类型的仓库，可以通过命令行或者 YAML 的方式来添加。
+
+```yaml
+apiVersion: v1
+data:
+  enableOCI: dHJ1ZQ==
+  name: c2staGVsbQ==
+  project: ZGVmYXVsdA==
+  type: aGVsbQ==
+  url: cmVnaXN0cnktMS5kb2NrZXIuaW8=
+kind: Secret
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: repo-skywalking-helm
+  namespace: argocd
+type: Opaque
+```
+
+OCI 类型的 Helm 仓库安装示例请查看 [examples/skywalking](examples/skywalking.md)
+
 ## Webhook
 TODO
 
