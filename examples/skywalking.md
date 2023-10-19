@@ -21,6 +21,10 @@ spec:
         value: elasticsearch
       - name: ui.image.tag
         value: "9.2.0"
+      - name: ui.service.type
+        value: "NodePort"
+      - name: ui.service.nodePort
+        value: "30113"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: skywalking
